@@ -464,26 +464,28 @@ def save_generation_stats(sorted_memepool):
 	response = client.request("http://api.tumblr.com/v2/blog/meme-pool.tumblr.com/post", method="POST", body=urllib.urlencode(post_params))
 	print response
 
-		
-client, access_token = set_up_xauth(consumer_key, consumer_secret, access_token_url, tumblr_username, tumblr_password)
-flickr = set_up_flickr(flickr_api_key)
+def main():		
+	client, access_token = set_up_xauth(consumer_key, consumer_secret, access_token_url, tumblr_username, tumblr_password)
+	flickr = set_up_flickr(flickr_api_key)
 
-follower1 = get_random_follower('meme-pool')
-follower1_reblog_target = get_tagged_image_from_follower(follower1)
-reblog_to_memepool(follower1_reblog_target)
-follower2 = get_random_follower('meme-pool')
-follower2_reblog_target = get_tagged_image_from_follower(follower2)
-reblog_to_memepool(follower2_reblog_target)
+	follower1 = get_random_follower('meme-pool')
+	follower1_reblog_target = get_tagged_image_from_follower(follower1)
+	reblog_to_memepool(follower1_reblog_target)
+	follower2 = get_random_follower('meme-pool')
+	follower2_reblog_target = get_tagged_image_from_follower(follower2)
+	reblog_to_memepool(follower2_reblog_target)
+	
+	#dash_reblog_target = get_tagged_image_from_dash('YOUR_USERNAME')
+	#reblog_to_memepool(dash_reblog_target)
 
-#dash_reblog_target = get_tagged_image_from_dash('YOUR_USERNAME')
-#reblog_to_memepool(dash_reblog_target)
+	sorted_memepool = sort_memepool_by_fitness()
 
-sorted_memepool = sort_memepool_by_fitness()
+	mate_posts(sorted_memepool)
+	mate_posts(sorted_memepool)
+	mate_posts(sorted_memepool)
+	save_generation_stats(sorted_memepool)
 
-mate_posts(sorted_memepool)
-mate_posts(sorted_memepool)
-mate_posts(sorted_memepool)
-save_generation_stats(sorted_memepool)
+main()
 
 
 
