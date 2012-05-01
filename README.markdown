@@ -23,3 +23,6 @@ Evolution is slow and boring without [mutations](http://en.wikipedia.org/wiki/Mu
 I wrote Meme Pool in Python, with help from the Tumblr and Flickr APIs. I'll share the code when I clean it up.
 
 __TL;DR__: Every day, Meme Pool 1) mates two posts to create a new child and 2) reblogs a randomly selected post from a follower. These are the only rules it needs to evolve!
+
+##__License__
+All code in this repository is released to the public domain under a Permissive Thelemic License: "Do what thou wilt shall be the whole of the law."
