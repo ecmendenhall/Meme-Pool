@@ -39,7 +39,9 @@ def set_up_xauth(consumer_key, consumer_secret, access_token_url, tumblr_usernam
     #Set the signature method to HMAC-SHA1.
     client.set_signature_method = oauth.SignatureMethod_HMAC_SHA1()
     #Authenticate via xAuth. Store the response and access token.
-    resp, token = client.request(access_token_url, method="POST", body=urllib.urlencode(params))
+    resp, token = client.request(access_token_url, 
+                                 method="POST",
+                                 body=urllib.urlencode(params))
 
     logging.info("xAuth response: %s", resp)
 
@@ -129,7 +131,10 @@ def get_tagged_image_from_follower(client, follower):
             get_tagged_image_from_follower(client, new_follower)
         
         logging.info("Follower posts with tags: %s", follower_posts_with_tags)
+        
         #Pick a random post and get its reblog key
+        if len(follower_posts_with_tags) == 0:
+            return None
         reblog_target = random.choice(follower_posts_with_tags)
         
         while follower_posts_with_tags == 'submission':
@@ -190,8 +195,12 @@ def mate_posts(client, sorted_list):
         mate2 = int(population - (random.random() * random.random() * population))
     
     #Choose an allele from each mate
-    papa_allele = random.choice(sorted_list[mate1]['tags'])
-    mama_allele = random.choice(sorted_list[mate2]['tags'])
+    try:
+        papa_allele = random.choice(sorted_list[mate1]['tags'])
+        mama_allele = random.choice(sorted_list[mate2]['tags'])
+    except IndexError:
+        mate_posts(client, sorted_list)
+
     image_tags = papa_allele + ", " + mama_allele
     
     #Search Flickr for photos with both tags. If none are found, search for photos with either tag.
