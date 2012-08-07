@@ -13,14 +13,14 @@ import csv
 from operator import itemgetter
 
 #Store API keys, username & password for xAuth authentication.
-CONSUMER_KEY = 'YOUR_TUMBLR_CONSUMER_KEY'
-CONSUMER_SECRET = 'YOUR_TUMBLR_CONSUMER_SECRET'
-ACCESS_TOKEN_URL = 'https://www.tumblr.com/oauth/access_token'
-TUMBLR_USERNAME = 'YOUR_TUMBLR_USERNAME'
-TUMBLR_PASSWORD = 'YOUR_TUMBLR_PASSWORD'
+consumer_key = 'YOUR_TUMBLR_CONSUMER_KEY'
+consumer_secret = 'YOUR_TUMBLR_CONSUMER_SECRET'
+access_token_url = 'https://www.tumblr.com/oauth/access_token'
+tumblr_username = 'YOUR_TUMBLR_USERNAME'
+tumblr_password = 'YOUR_TUMBLR_PASSWORD'
 
 #Store Flickr API key
-FLICKR_API_KEY = 'YOUR_FLICKR_API_KEY'
+flickr_api_key = 'YOUR_FLICKR_API_KEY'
 
 #Thanks to John Bunting for the Tumblr xAuth example available here: https://gist.github.com/1298749
 def set_up_xauth(consumer_key, consumer_secret, access_token_url, tumblr_username, tumblr_password):
@@ -222,7 +222,7 @@ def mate_posts(client, sorted_list):
     mip_secret = str(most_interesting_photo.secret)
     
     photo_source_url = "http://farm" + str(most_interesting_photo.farm) + ".staticflickr.com/" + str(most_interesting_photo.server) + "/" + mip_id + "_" + mip_secret + ".jpg"
-    photo_page_url = "http://www.flickr.com/photos/" + str(most_interesting_photo.owner) + "/" + mip_id 
+    photo_page_url = "http://www.flickr.com/photos/" + str(most_interesting_photo.owner.id) + "/" + mip_id 
     
     #Check that the photo is freely available
     photo_owner = most_interesting_photo.owner.username
